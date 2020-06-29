@@ -55,6 +55,7 @@ router.post("/", async (req, res, next) => {
     //send new sentiment instance to client
 
     // return res.status(204).send({ ...result.dataValues });
+    res.send({ averageScore });
   } catch (error) {
     next(error);
   }
