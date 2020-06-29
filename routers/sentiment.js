@@ -1,6 +1,8 @@
 const { Router } = require("express");
 const User = require("../models/").user;
 const Sentiment = require("../models/").sentiment;
+const SentimentTool = require("sentiment");
+const sentiment = new SentimentTool();
 
 const router = new Router();
 
@@ -13,7 +15,7 @@ router.post("/", async (req, res, next) => {
 
   console.log("life", life);
 
-  res.send({ today, tomorrow, life });
+  //res.send({ today, tomorrow, life });
 
   /* VALIDATION */
 
@@ -23,6 +25,8 @@ router.post("/", async (req, res, next) => {
   ANALYSIS */
 
   //analyze today
+
+  const resultToday = sentiment.analyze(today);
 
   //analyze tomorrow
 
