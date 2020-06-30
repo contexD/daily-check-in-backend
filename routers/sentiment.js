@@ -6,6 +6,17 @@ const sentiment = new SentimentTool();
 
 const router = new Router();
 
+router.get("/", async (req, res, next) => {
+  try {
+    const history = await Sentiment.findAll({
+      where: { userId: req.user.id },
+    });
+    return res.status(200).send(history);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.post("/", async (req, res, next) => {
   try {
     const { today, tomorrow, life } = req.body;
