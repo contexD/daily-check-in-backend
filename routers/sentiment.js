@@ -10,14 +10,6 @@ router.post("/", async (req, res, next) => {
   try {
     const { today, tomorrow, life } = req.body;
 
-    // console.log("today", today);
-
-    // console.log("tomorrow", tomorrow);
-
-    // console.log("life", life);
-
-    //res.send({ today, tomorrow, life });
-
     /* VALIDATION */
 
     //reject if any field is empty
@@ -39,23 +31,23 @@ router.post("/", async (req, res, next) => {
         resultTomorrow.comparative +
         resultLife.comparative) /
       3;
+
     /* SAVE ANALYSIS
   IN DB */
-    //req.user.id will contain userId if request is authorized
-    //create new sentiment instance in db with respective scores
+    // req.user.id will contain userId if request is authorized
+    // create new sentiment instance in db with respective scores
 
-    // let result = await Sentiment.create({
-    //   score: averageScore,
-    //   comparativeScore: averageComparativeScore,
-    //   userId: request.user.id,
-    // });
+    let result = await Sentiment.create({
+      score: averageScore,
+      comparativeScore: averageComparativeScore,
+      userId: req.user.id,
+    }).then((newSentiment) => newSentiment.get({ plain: true }));
 
     /* RESPONSE TO
   CLIENT */
-    //send new sentiment instance to client
 
-    // return res.status(204).send({ ...result.dataValues });
-    res.send({ averageScore });
+    //send new sentiment instance to client
+    return res.status(200).send(result);
   } catch (error) {
     next(error);
   }
