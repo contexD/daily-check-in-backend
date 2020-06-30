@@ -31,6 +31,7 @@ router.post("/", async (req, res, next) => {
         resultTomorrow.comparative +
         resultLife.comparative) /
       3;
+
     /* SAVE ANALYSIS
   IN DB */
     // req.user.id will contain userId if request is authorized
@@ -40,14 +41,13 @@ router.post("/", async (req, res, next) => {
       score: averageScore,
       comparativeScore: averageComparativeScore,
       userId: req.user.id,
-    });
+    }).then((newSentiment) => newSentiment.get({ plain: true }));
 
     /* RESPONSE TO
   CLIENT */
-    //send new sentiment instance to client
 
-    return res.status(204).send({ ...result.dataValues });
-    //res.send({ averageScore });
+    //send new sentiment instance to client
+    return res.status(200).send(result);
   } catch (error) {
     next(error);
   }
