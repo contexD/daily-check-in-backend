@@ -11,8 +11,7 @@ router.get("/", async (req, res, next) => {
     const history = await Sentiment.findAll({
       where: { userId: req.user.id },
     });
-    console.log(history);
-    // return res.status(200).send(history);
+    return res.status(200).send(history);
   } catch (error) {
     next(error);
   }
