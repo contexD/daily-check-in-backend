@@ -12,6 +12,7 @@ router.get("/", async (req, res, next) => {
       where: { userId: req.user.id },
     });
     console.log(history);
+    // return res.status(200).send(history);
   } catch (error) {
     next(error);
   }
