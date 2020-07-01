@@ -37,7 +37,9 @@ router.post("/login", async (req, res, next) => {
 router.post("/signup", async (req, res) => {
   const { email, password, name } = req.body;
   if (!email || !password || !name) {
-    return res.status(400).send("Please provide an email, password and a name");
+    return res
+      .status(400)
+      .send({ message: "Please provide an email, password and a name" });
   }
 
   try {
