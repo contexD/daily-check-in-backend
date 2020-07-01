@@ -1,6 +1,7 @@
 const { Router } = require("express");
-const router = require("./sentiment");
 const User = require("../models/").user;
+
+const router = new Router();
 
 router.get("/users", async (req, res, next) => {
   try {
@@ -10,3 +11,5 @@ router.get("/users", async (req, res, next) => {
     next(error);
   }
 });
+
+module.exports = router;
