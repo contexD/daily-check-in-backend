@@ -7,7 +7,7 @@ const router = new Router();
 
 router.get("/users", async (req, res, next) => {
   try {
-    const users = await User.findAll();
+    const users = await User.findAll({ include: [{ model: Sentiment }] });
     return res.status(200).send(users);
   } catch (error) {
     next(error);
