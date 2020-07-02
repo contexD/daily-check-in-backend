@@ -4,6 +4,7 @@ const corsMiddleWare = require("cors");
 const { PORT } = require("./config/constants");
 const authRouter = require("./routers/auth");
 const sentimentRouter = require("./routers/sentiment");
+const adminRouter = require("./routers/admin");
 const authMiddleWare = require("./auth/middleware");
 
 const app = express();
@@ -154,6 +155,7 @@ app.post("/authorized_post_request", authMiddleWare, (req, res) => {
 app.use("/", authRouter);
 
 app.use("/sentiment", authMiddleWare, sentimentRouter);
+app.use("/admin", authMiddleWare, adminRouter);
 
 // Listen for connections on specified port (default is port 4000)
 
