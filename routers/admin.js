@@ -5,20 +5,6 @@ const Sentiment = require("../models").sentiment;
 
 const router = new Router();
 
-const colours = {
-  "-5": "red",
-  "-4": "lighter red",
-  "-3": "orange",
-  "-2": "lighter orange",
-  "-1": "yellow",
-  "0": "light yellow",
-  "1": "ligther green",
-  "2": "lightgreen",
-  "3": "green",
-  "4": "darker green",
-  "5": "dark green",
-};
-
 router.get("/users", async (req, res, next) => {
   try {
     const users = await User.findAll({ include: [{ model: Sentiment }] });
