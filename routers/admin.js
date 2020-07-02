@@ -7,8 +7,17 @@ const router = new Router();
 
 router.get("/users", async (req, res, next) => {
   try {
-    const users = await User.findAll();
-    return res.status(200).send(users);
+    const users = await User.findAll({ include: [{ model: Sentiment }] });
+    const usersAndScore = users.map((user) => {
+      const score =
+        user.dataValues.sentiments.reduce((total, currentValue) => {
+          return total + currentValue.score;
+        }, 0) / user.dataValues.sentiments.length;
+      delete user.dataValues["sentiments"];
+      delete user.dataValues["password"];
+      return { user, score };
+    });
+    return res.status(200).send(usersAndScore);
   } catch (error) {
     next(error);
   }
