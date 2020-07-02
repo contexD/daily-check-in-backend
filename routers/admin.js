@@ -1,6 +1,7 @@
 const { Router } = require("express");
-const Sentiment = require("sentiment");
+// const Sentiment = require("sentiment");
 const User = require("../models/").user;
+const Sentiment = require("../models").sentiment;
 
 const router = new Router();
 
