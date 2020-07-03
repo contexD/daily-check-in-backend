@@ -23,7 +23,11 @@ router.post("/", async (req, res, next) => {
 
     /* VALIDATION */
 
-    //reject if any field is empty
+    if (!today || !tomorrow || !life) {
+      return res
+        .status(400)
+        .send({ message: "Please fill in all form fields." });
+    }
 
     /* SENTIMENT
   ANALYSIS */
